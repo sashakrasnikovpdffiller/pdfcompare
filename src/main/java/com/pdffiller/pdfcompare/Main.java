@@ -6,8 +6,14 @@ import java.io.IOException;
 
 import com.pdffiller.pdfcompare.service.CompareService;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 public class Main {
     public static void main(String[] args) {
+        BasicConfigurator.configure();
+        Logger.getRootLogger().setLevel(Level.OFF);
         try {
             if (args.length < 2) {
                 throw new IllegalArgumentException("Bad command line. Expected arguments: file1 file2 [image directory] [page threshold] [pixel threshold] [kernel size]\n" +

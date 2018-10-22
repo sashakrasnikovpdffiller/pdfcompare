@@ -10,6 +10,7 @@ import java.io.InputStream;
 public final class CompareService {
     public static final Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
+            .disableHtmlEscaping()
             .serializeNulls()
             .create();
 
