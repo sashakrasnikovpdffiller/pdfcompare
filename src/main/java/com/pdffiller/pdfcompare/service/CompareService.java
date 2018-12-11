@@ -29,17 +29,17 @@ public final class CompareService {
         return pdfCmp;
     }
 
-    public static String processPdfs(String fileName1, String fileName2, String imageDir, double pageThreshold, double pixelThreshold, int kernelSize) throws Exception {
+    public static String processPdfs(String fileName1, String fileName2, String imageDir, double pageThreshold, double pixelThreshold, int kernelSize, boolean forceRecheck) throws Exception {
         try (
                 InputStream stream1 = new FileInputStream(fileName1);
                 InputStream stream2 = new FileInputStream(fileName2)
         ) {
-            return gson.toJson(processPdfFillableFields(stream1, stream2, imageDir, pageThreshold, pixelThreshold, kernelSize));
+            return gson.toJson(processPdfFillableFields(stream1, stream2, imageDir, pageThreshold, pixelThreshold, kernelSize, forceRecheck));
         }
     }
 
-    public static Comparer processPdfFillableFields(InputStream pdfStream1, InputStream pdfStream2, String imageDir, double pageThreshold, double pixelThreshold, int kernelSize) {
-        Comparer pdfCmp = new Comparer(pdfStream1, pdfStream2, pageThreshold, pixelThreshold, kernelSize);
+    public static Comparer processPdfFillableFields(InputStream pdfStream1, InputStream pdfStream2, String imageDir, double pageThreshold, double pixelThreshold, int kernelSize, boolean forceRecheck) {
+        Comparer pdfCmp = new Comparer(pdfStream1, pdfStream2, pageThreshold, pixelThreshold, kernelSize, forceRecheck);
         pdfCmp.doComparison();
         if ((imageDir != "-") && (imageDir != "/dev/null")) {
             pdfCmp.exportCompareImages(imageDir);
